@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+shortCode=$(uuidgen | cut -b -8)
+
+if [[ $(cat /sys/module/bluetooth/parameters/disable_ertm) = 'N' ]]; then
+  echo "Y" > "/tmp/${shortCode}-Y"
+  sudo cp -f "/tmp/${shortCode}-Y" /sys/module/bluetooth/parameters/disable_ertm
+  rm "/tmp/${shortCode}-Y"
+fi
